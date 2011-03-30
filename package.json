@@ -1,0 +1,10 @@
+{
+    "name": "chargify",
+    "version": "0.1.0",
+    "homepage": "https://github.com/andyet/node-chargify",
+    "repository":{"type":"git", "url":"https://github.com/andyet/node-chargify.git"},
+    "author": {"name":"&yet, LLC", "url":"http://andyet.net"},
+    "contributors": [{"name":"Nathan Vander Wilt", "email": "nate@andyet.net", "url":"http://cloudcartography.com"}],
+    "description": "A fairly generic REST interface wrapper for building and acessing Chargify API URLs.",
+    "main": "chargify"
+}
