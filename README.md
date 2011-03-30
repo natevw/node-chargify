@@ -2,6 +2,8 @@ This is a fairly generic REST interface wrapper that allows Chargify URLs to be 
 See <http://docs.chargify.com/api-resources> and surrounding pages for up-to-date Chargify documentation.
 
 
+## Examples ##
+
 A site is wrapped in a representation of its base URL:
 
     var wrapped_site = chargify.wrapSite('example-site', "API_KEY");
@@ -27,7 +29,13 @@ Or, used to add or remove objects (i.e. POST, DELETE):
     });
 
 
-The full API of the URL wrapper interface is as follows:
+## Documentation ##
+
+The module has but one function:
+
+* `chargify.wrapSite(subdomain, key)` - return base URL wrapper for a Chargify site using the given API key.
+
+The actions available on this URL wrapper interface are as follows:
 
 * `()` - return wrapped URL as string
 * `(string/number/etc.)` - return another URL wrapper with given path component appended
@@ -40,3 +48,26 @@ The full API of the URL wrapper interface is as follows:
 * `.post(dict, callback)` - POST on wrapped URL with dict sent as JSON body
 * `.del(dict, callback)` - DELETE on wrapped URL with dict sent as JSON body
 * `.req(query, method, dict, callback)` - _METHOD_ on wrapped URL (plus query parameters) with data as JSON for body (`query` and `data` may be null)
+
+
+## License ##
+
+Copyright © 2011 by &yet, LLC. Released under the terms of the MIT License:
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
