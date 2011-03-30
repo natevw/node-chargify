@@ -5,20 +5,20 @@
 //
 //
 // A site is wrapped in a representation of its base URL:
-//   var wrapped_site = chargify.wrapSite('example', "KEYKEYKEY");
+//   var wrapped_site = chargify.wrapSite('example-site', "API_KEY");
 //
 // This base URL can be extended...
 //   var some_subscription = wrapped_site('subscriptions')(42);
 //
 // ...and queried (i.e. GET):
-//   some_subscription(function (err, data) { console.log(data.subscription.state); });
+//   some_subscription(function (status, data) { if (status === 200) console.log(data.subscription.state); });
 //
 // ...and updated (i.e. PUT):
-//   some_subscription('components')(5)({component:{allocated_quantity:9}}, function (e, info) { console.log(info); });
+//   some_subscription('components')(5)({component:{allocated_quantity:9}}, function (s, info) { console.log(info); });
 //
 // ...and used to add or remove objects (i.e. POST, DELETE):
-//   wrapped_site('customers').add({customer:{first_name:"Sir",last_name:"Pedro"}}, function (e, info) {
-//     wrapped_site('customers')(info.customer.id).remove(function (e, info) {});
+//   wrapped_site('customers').add({customer:{first_name:"Sir",last_name:"Pedro"}}, function (s, info) {
+//     wrapped_site('customers')(info.customer.id).remove(function (s, info) {});
 //   });
 //
 // The full API of the URL wrapper interface is as follows:
