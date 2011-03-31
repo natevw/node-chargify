@@ -1,6 +1,6 @@
 {
     "name": "chargify",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "homepage": "https://github.com/andyet/node-chargify",
     "repository":{"type":"git", "url":"https://github.com/andyet/node-chargify.git"},
     "author": {"name":"&yet, LLC", "url":"http://andyet.net"},

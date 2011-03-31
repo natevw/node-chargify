@@ -63,7 +63,7 @@ exports.wrapSite = function (subdomain, api_key) {
         req.end();
         
         req.on('error', function () {
-            callback(0, "Connection error");
+            yieldResponse(0, "Connection error");
         });
         req.on('response', function (res) {
             res.setEncoding('utf8');
