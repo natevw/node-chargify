@@ -2,29 +2,35 @@ var request = require('request');
 var url = require('url');
 
 function Chargify(options) {
-    this.host = options.host;
-    this.auth = 'Basic ' + new Buffer(options.api_key + ':x').toString('base64');
+    if (typeof options === 'string') {
+        options = {
+            subdomain: arguments[0],
+            api_key: arguments[1]
+        };
+    };
+    if (!(this instanceof Chargify)) {
+        return new Chargify(options);
+    }
+    this.host = options.subdomain + '.chargify.com';
+    this.api_key = options.api_key;
 };
 
 Chargify.prototype.request = function(options, callback) {
     options.uri = options.uri || url.format({
         protocol: 'https',
         host: this.host,
+        auth: this.api_key + ':x',
         pathname: options.pathname
     });
     options.headers = {
-        'Authorization': this.auth,
-        'Content-Type': 'application/json',
-        'Content-Length': 0,
-        'Accept': 'application/json'
+        'content-type': 'application/json',
+        'accept': 'application/json'
     };
     request(options, function(err, res, body) {
         if (err) return callback(err);
-
         try {
             var body = JSON.parse(body);
         } catch(e) {}
-
         callback(err, res, body);
     });
 };
@@ -59,12 +65,4 @@ Chargify.prototype.del = function(options, callback) {
     this.request(options, callback);
 };
 
-function chargify(subdomain, api_key) {
-    var options = {
-        host: subdomain + '.chargify.com',
-        api_key: api_key
-    };
-    return new Chargify(options);
-};
-
-module.exports = chargify;
+module.exports = Chargify;
