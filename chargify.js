@@ -24,7 +24,6 @@ Chargify.prototype.request = function(options, callback) {
         auth: this.api_key + ':x'
     }));
     options.headers = {
-        'content-type': 'application/json',
         'accept': 'application/json'
     };
     request(options, function(err, res, body) {
