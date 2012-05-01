@@ -90,9 +90,6 @@ Then simply run:
 
     npm test
 
-This is a fairly generic REST interface wrapper that allows Chargify URLs to be accessed from node.js.
-See <http://docs.chargify.com/api-resources> and surrounding pages for up-to-date Chargify documentation.
-
 ## License
 
 Copyright © 2011 by &yet, LLC. Released under the terms of the MIT License:
