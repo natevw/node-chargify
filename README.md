@@ -1,4 +1,4 @@
-Easy integration with [Chargify][0] for adding recurring payments your
+Easy integration with [Chargify][0] for adding recurring payments to your
 application.
 
 This module is essentially a wrapper around [Request][1], but adds a little
