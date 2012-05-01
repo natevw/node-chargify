@@ -7,7 +7,6 @@ function Chargify(options) {
 };
 
 Chargify.prototype.request = function(options, callback) {
-    if (typeof options === 'string') options = {pathname:options}
     options.uri = options.uri || url.format({
         protocol: 'https',
         host: this.host,
@@ -31,26 +30,31 @@ Chargify.prototype.request = function(options, callback) {
 };
 
 Chargify.prototype.get = function(options, callback) {
+    if (typeof options === 'string') options = {pathname:options}
     options.method = 'GET';
     this.request(options, callback);
 };
 
 Chargify.prototype.post = function(options, callback) {
+    if (typeof options === 'string') options = {pathname:options}
     options.method = 'POST';
     this.request(options, callback);
 };
 
 Chargify.prototype.put = function(options, callback) {
+    if (typeof options === 'string') options = {pathname:options}
     options.method = 'PUT';
     this.request(options, callback);
 };
 
 Chargify.prototype.head = function(options, callback) {
+    if (typeof options === 'string') options = {pathname:options}
     options.method = 'HEAD';
     this.request(options, callback);
 };
 
 Chargify.prototype.del = function(options, callback) {
+    if (typeof options === 'string') options = {pathname:options}
     options.method = 'DELETE';
     this.request(options, callback);
 };
