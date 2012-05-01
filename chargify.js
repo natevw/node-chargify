@@ -1,4 +1,5 @@
 var request = require('request');
+var _ = require('underscore');
 var url = require('url');
 
 function Chargify(options) {
@@ -16,12 +17,12 @@ function Chargify(options) {
 };
 
 Chargify.prototype.request = function(options, callback) {
-    options.uri = options.uri || url.format({
+    options.uri = options.uri || options.url;
+    options.uri = url.format(_(url.parse(options.uri)).defaults({
         protocol: 'https',
         host: this.host,
-        auth: this.api_key + ':x',
-        pathname: options.pathname
-    });
+        auth: this.api_key + ':x'
+    }));
     options.headers = {
         'content-type': 'application/json',
         'accept': 'application/json'
@@ -36,31 +37,31 @@ Chargify.prototype.request = function(options, callback) {
 };
 
 Chargify.prototype.get = function(options, callback) {
-    if (typeof options === 'string') options = {pathname:options}
+    if (typeof options === 'string') options = {uri:options}
     options.method = 'GET';
     this.request(options, callback);
 };
 
 Chargify.prototype.post = function(options, callback) {
-    if (typeof options === 'string') options = {pathname:options}
+    if (typeof options === 'string') options = {uri:options}
     options.method = 'POST';
     this.request(options, callback);
 };
 
 Chargify.prototype.put = function(options, callback) {
-    if (typeof options === 'string') options = {pathname:options}
+    if (typeof options === 'string') options = {uri:options}
     options.method = 'PUT';
     this.request(options, callback);
 };
 
 Chargify.prototype.head = function(options, callback) {
-    if (typeof options === 'string') options = {pathname:options}
+    if (typeof options === 'string') options = {uri:options}
     options.method = 'HEAD';
     this.request(options, callback);
 };
 
 Chargify.prototype.del = function(options, callback) {
-    if (typeof options === 'string') options = {pathname:options}
+    if (typeof options === 'string') options = {uri:options}
     options.method = 'DELETE';
     this.request(options, callback);
 };
