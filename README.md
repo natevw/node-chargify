@@ -1,6 +1,36 @@
 This is a fairly generic REST interface wrapper that allows Chargify URLs to be accessed from node.js.
 See <http://docs.chargify.com/api-resources> and surrounding pages for up-to-date Chargify documentation.
 
+# Important note #
+    
+This library inspired, and **has been superceded by [Fermata](https://github.com/natevw/fermata)**.
+While Fermata's API is a little different, the codebase descends more or less directly from this library,
+so the overall idea is very similar.
+
+The main differences are improved callback arguments (an error is now provided for bad status codes)
+and the removal of the `.add`, `.remove` and `.req` methods in favor of a generic HTTP method call syntax.
+
+Oh, and also! Under node.js (and some browsers, not that that's relevant for this plugin),
+Fermata behaves as catch-all [Proxy](http://wiki.ecmascript.org/doku.php?id=harmony:proxies) object.
+So in many cases you can actually drop the parentheses and treat the REST URLs native objects:
+`site.subscriptions[42].components[5].get(callback)`
+
+Other than that, you should find the new library quite familiar once you load the Chargify plugin (included):
+
+    var f = require('fermata'),
+        c = require('fermata/plugins/chargify');
+    f.registerPlugin('chargify', c);
+    
+    var wrapped_site = f.chargify('example-site', "API_KEY"),
+        some_subscription = wrapped_site('subscriptions')(42);  // or even `wrapped_site.subscriptions[42]`!
+    some_subscription.get(function(err, data) { if (!err) console.log(data.subscription.state); });
+    
+By using [Fermata](https://github.com/natevw/fermata) you get the benefits of a more refined version of this API,
+in a library useable with Chargify *and* any other RESTful services your app needs to connect to.
+
+
+**/Important Note**, this original library's API documentation below…
+
 
 ## Examples ##
 
