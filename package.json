@@ -1,11 +1,45 @@
 {
     "name": "chargify",
+    "description": "Easy integration with Chargify for adding recurring payments to your application.",
     "version": "0.1.1",
     "homepage": "https://github.com/andyet/node-chargify",
-    "repository":{"type":"git", "url":"https://github.com/andyet/node-chargify.git"},
-    "author": {"name":"&yet, LLC", "url":"http://andyet.net"},
-    "contributors": [{"name":"Nathan Vander Wilt", "email": "nate@andyet.net", "url":"http://cloudcartography.com"}],
-    "description": "A fairly generic REST interface wrapper for building and accessing Chargify API URLs.",
-    "licenses": [{"type": "MIT", "url": "https://github.com/andyet/node-chargify/raw/master/README.md"}],
-    "main": "chargify"
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/andyet/node-chargify.git"
+    },
+    "author": {
+        "name": "&yet, LLC",
+        "url": "http://andyet.net"
+    },
+    "contributors": [
+        {
+            "name": "Nathan Vander Wilt",
+            "email": "nate@andyet.net",
+            "url": "http://cloudcartography.com"
+        },
+        {
+            "name": "Will White",
+            "email": "will@mapbox.com",
+            "url": "http://mapbox.com"
+        }
+    ],
+    "licenses": [
+        {
+            "type": "MIT"
+        }
+    ],
+    "main": "chargify",
+    "dependencies": {
+        "request": "2.2.x",
+        "underscore": "1.1.x"
+    },
+    "engines": {
+        "node": ">= 0.6.x"
+    },
+    "devDependencies": {
+        "mocha": "1.0.x"
+    },
+    "scripts": {
+        "test": "mocha"
+    }
 }

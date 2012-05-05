@@ -1,5 +1,5 @@
-This is a fairly generic REST interface wrapper that allows Chargify URLs to be accessed from node.js.
-See <http://docs.chargify.com/api-resources> and surrounding pages for up-to-date Chargify documentation.
+Easy integration with [Chargify][0] for adding recurring payments to your
+application.
 
 # Important note #
     
@@ -29,60 +29,100 @@ By using [Fermata](https://github.com/natevw/fermata) you get the benefits of a 
 in a library useable with Chargify *and* any other RESTful services your app needs to connect to.
 
 
-**/Important Note**, this original library's API documentation below…
+**(end of Important Note)**, this here library's API documentation below…
 
+As of [version 0.2](https://github.com/natevw/node-chargify/pull/1), this module is essentially a wrapper around [Request][1], but adds a little
+convenience for connecting to the [Chargify API][2].
 
-## Examples ##
+[0]:http://chargify.com/
+[1]:https://github.com/mikeal/request
+[2]:http://docs.chargify.com/api-resources
+[3]:https://github.com/mikeal/request/blob/master/README.md
 
-A site is wrapped in a representation of its base URL:
+## Example
 
-    var wrapped_site = chargify.wrapSite('example-site', "API_KEY");
+You can normally require and instantiate at the same time using your Chargify
+subdomain and API key.
 
-This base URL can be extended...
+    var chargify = require('chargify');
+    var chargify_site = chargify('YOUR-CHARGIFY-SUBDOMAIN', 'YOUR-API-KEY');
 
-    var some_subscription = wrapped_site('subscriptions')(42);
+List subscriptions:
 
-...and queried (i.e. GET):
-
-    some_subscription(function (status, data) { if (status === 200) console.log(data.subscription.state); });
-
-...and updated (i.e. PUT):
-
-    some_subscription('components')(5)({component:{allocated_quantity:9}}, function (status, info) { console.log(info); });
-
-Or, used to add or remove objects (i.e. POST, DELETE):
-
-    var customerInfo = {customer:{first_name:"Sir",last_name:"Pedro",email:"user@example.com"}};
-    wrapped_site('customers').add(customerInfo, function (s, info) {
-        // NOTE: Chargify currently returns 403 from this request, as customer deletion is not supported
-        wrapped_site('customers')(info.customer.id).remove(function (s, info) {});
+    chargify_site.get('subscriptions.json', function(err, res, body) {
+        if (err) throw err;
+        console.log(res.statusCode);
+        console.log(body);
     });
 
+Load subscription #40:
 
-## Documentation ##
+    chargify_site.get('subscriptions/40.json', function(err, res, body) {
+        if (err) throw err;
+        console.log(res.statusCode);
+        console.log(body);
+    });
 
-The module has but one function:
+Create a new customer:
 
-* `chargify.wrapSite(subdomain, key)` - return base URL wrapper for a Chargify site using the given API key.
+    chargify_site.post({
+        pathname: 'customers.json',
+        json: {
+            customer: {
+                first_name: 'Joe',
+                last_name: 'Blow',
+                email: 'joe@example.com'
+            }
+        }
+    }, function(err, res, body) {
+        if (err) throw err;
+        console.log(res.statusCode);
+        console.log(body);
+    });
 
-The actions available on this URL wrapper interface are as follows:
+## Documentation
 
-* `()` - return wrapped URL as string
-* `(string/number/etc.)` - return another URL wrapper with given path component appended
-* `(callback)` - GET on wrapped URL [alias for `.get(null, cb)`]
-* `(dict, callback)` - PUT on wrapped URL [alias for `.put`]
-* `.add(dict, callback)` - POST on wrapped URL [alias for `.post`]
-* `.remove(callback)` - DELETE on wrapped URL [alias for `.del(null, cb)`]
-* `.get(dict, callback)` - GET on wrapped URL with query parameters from dict
-* `.put(dict, callback)` - PUT on wrapped URL with dict sent as JSON body
-* `.post(dict, callback)` - POST on wrapped URL with dict sent as JSON body
-* `.del(dict, callback)` - DELETE on wrapped URL with dict sent as JSON body
-* `.req(query, method, dict, callback)` - _METHOD_ on wrapped URL (plus query parameters) with data as JSON for body (`query` and `data` may be null)
+### chargify(subdomain, api_key)
 
+Returns a chargify_site. The available methods are listed below.
 
-## License ##
+- chargify_site.get(options, callback)
+- chargify_site.post(options, callback)
+- chargify_site.put(options, callback)
+- chargify_site.del(options, callback)
 
-Copyright © 2011 by &yet, LLC. Released under the terms of the MIT License:
+The first argument can be either a url or an options object. he only required
+key is `uri`. The only required option is uri, all others are optional. The key
+attributes are listed below. See the [Request module's README][3] for a full list.
+
+- `uri` - Required. The URI of the resource. `host`, `protocol`, and `auth`
+   information are optional.
+- `json` - sets the body of the request using a JavaScript object.
+
+## See also
+
+- [Request documentation](https://github.com/mikeal/request/blob/master/README.md)
+- [Chargify API documentation][2]
+
+## Testing
+
+Before running the tests, you need to create a Chargify test site and specify
+the site's subdomain and your API key in a JSON file called config.json.
+
+Example config.json file:
+
+    {
+        "chargifySubdomain": "chargify-test",
+        "chargifyAPIKey": "xxxxxxxxxxxxxx-9x_"
+    }
+
+Then simply run:
+
+    npm test
+
+## License
+
+Copyright © 2012 by &yet, LLC and Will White. Released under the terms of the MIT License:
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
