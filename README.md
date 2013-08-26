@@ -66,7 +66,7 @@ Load subscription #40:
 Create a new customer:
 
     chargify_site.post({
-        pathname: 'customers.json',
+        uri: 'customers.json',
         json: {
             customer: {
                 first_name: 'Joe',
