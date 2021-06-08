@@ -5,7 +5,7 @@ var chargify = require('../chargify');
 
 describe('chargify', function() {
     before(function(done) {
-        if (path.existsSync('config.json')) {
+        if (fs.existsSync('config.json')) {
             var config = JSON.parse(fs.readFileSync('config.json'));
             chargify = chargify(config.chargifySubdomain, config.chargifyAPIKey);
         } else {
@@ -86,7 +86,7 @@ describe('chargify', function() {
                     if (err) throw err;
                     assert.equal(res.statusCode, 422);
                     assert.ok(body.errors);
-                    assert.equal(body.errors[0], 'Email address: must be a valid email format.');
+                    assert.equal(body.errors[0], 'Email: must be a valid email address');
                     done();
                 });
             });
