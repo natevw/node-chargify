@@ -3,7 +3,8 @@ application.
 
 # Important note #
     
-This library inspired, and **has been superceded by [Fermata](https://github.com/natevw/fermata)**.
+This library inspired, and **has been superceded by the [Chargify plugin](https://github.com/natevw/fermata-chargify) for the [Fermata HTTP client](https://github.com/natevw/fermata)**.
+
 While Fermata's API is a little different, the codebase descends more or less directly from this library,
 so the overall idea is very similar.
 
