@@ -36,14 +36,14 @@
     ],
     "main": "chargify",
     "dependencies": {
-        "request": "2.2.x",
-        "underscore": "1.1.x"
+        "request": "^2.88.2",
+        "underscore": "^1.13.1"
     },
     "engines": {
         "node": ">= 0.6.x"
     },
     "devDependencies": {
-        "mocha": "1.0.x"
+        "mocha": "^9.0.0"
     },
     "scripts": {
         "test": "mocha"
