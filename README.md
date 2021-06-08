@@ -19,12 +19,20 @@ So in many cases you can actually drop the parentheses and treat the REST URLs n
 Other than that, you should find the new library quite familiar once you load the Chargify plugin (included):
 
     var f = require('fermata'),
-        c = require('fermata/plugins/chargify');
+        c = require('fermata-chargify');
     f.registerPlugin('chargify', c);
     
-    var wrapped_site = f.chargify('example-site', "API_KEY"),
-        some_subscription = wrapped_site('subscriptions')(42);  // or even `wrapped_site.subscriptions[42]`!
-    some_subscription.get(function(err, data) { if (!err) console.log(data.subscription.state); });
+    var chargify_api = f.chargify('example-site', "API_KEY");
+    
+    var some_subscription = chargify_api('subscriptions')(42);
+    // or even:
+    let some_subscription = chargify_api.subscriptions[42];
+    
+    // then…
+    some_subscription.get(function(err, data) {
+        if (err) console.error("API issue:", err);
+        else console.log(data.subscription.state);
+    });
     
 By using [Fermata](https://github.com/natevw/fermata) you get the benefits of a more refined version of this API,
 in a library useable with Chargify *and* any other RESTful services your app needs to connect to.
