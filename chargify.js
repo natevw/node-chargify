@@ -28,7 +28,7 @@ Chargify.prototype.request = function(options, callback) {
     };
     request(options, function(err, res, body) {
         if (err) return callback(err);
-        if (res.headers['content-type'].indexOf('application/json') !== -1 && typeof body !== 'object') {
+        if (res.headers['content-type'] && res.headers['content-type'].indexOf('application/json') !== -1 && typeof body !== 'object') {
             try {
                 res.body = body = JSON.parse(body);
             } catch(e) {
