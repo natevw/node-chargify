@@ -1,7 +1,7 @@
 {
     "name": "chargify",
     "description": "Easy integration with Chargify for adding recurring payments to your application.",
-    "version": "0.3.0",
+    "version": "0.4.0-rc1",
     "homepage": "https://github.com/andyet/node-chargify",
     "repository": {
         "type": "git",
