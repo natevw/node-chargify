@@ -29,10 +29,10 @@ describe('chargify', function() {
                     }
                 }, function(err, res, body) {
                     if (err) throw err;
-                    assert.equal(res.statusCode, 201);
+                    assert.strictEqual(res.statusCode, 201);
                     assert.ok(body.customer);
                     assert.ok(body.customer.id);
-                    assert.equal(body.customer.first_name, 'Joe');
+                    assert.strictEqual(body.customer.first_name, 'Joe');
                     id = body.customer.id;
                     done();
                 });
@@ -48,9 +48,9 @@ describe('chargify', function() {
                     }
                 }, function(err, res, body) {
                     if (err) throw err;
-                    assert.equal(res.statusCode, 422);
+                    assert.strictEqual(res.statusCode, 422);
                     assert.ok(body.errors);
-                    assert.equal(body.errors[0], 'Last name: cannot be blank.');
+                    assert.strictEqual(body.errors[0], 'Last name: cannot be blank.');
                     done();
                 });
             });
@@ -66,11 +66,11 @@ describe('chargify', function() {
                     }
                 }, function(err, res, body) {
                     if (err) throw err;
-                    assert.equal(res.statusCode, 200);
+                    assert.strictEqual(res.statusCode, 200);
                     assert.ok(body.customer);
                     assert.ok(body.customer.id);
-                    assert.equal(body.customer.first_name, 'Joe');
-                    assert.equal(body.customer.last_name, 'Smith');
+                    assert.strictEqual(body.customer.first_name, 'Joe');
+                    assert.strictEqual(body.customer.last_name, 'Smith');
                     done();
                 });
             });
@@ -84,9 +84,9 @@ describe('chargify', function() {
                     }
                 }, function(err, res, body) {
                     if (err) throw err;
-                    assert.equal(res.statusCode, 422);
+                    assert.strictEqual(res.statusCode, 422);
                     assert.ok(body.errors);
-                    assert.equal(body.errors[0], 'Email: must be a valid email address');
+                    assert.strictEqual(body.errors[0], 'Email: must be a valid email address');
                     done();
                 });
             });
@@ -95,7 +95,7 @@ describe('chargify', function() {
             it('should list users', function(done) {
                 chargify.get('customers.json', function(err, res, body) {
                     if (err) throw err;
-                    assert.equal(res.statusCode, 200);
+                    assert.strictEqual(res.statusCode, 200);
                     assert.ok(body.length);
                     done();
                 });
@@ -103,25 +103,25 @@ describe('chargify', function() {
             it('should list users with ?page=2', function(done) {
                 chargify.get('customers.json?page=2', function(err, res, body) {
                     if (err) throw err;
-                    assert.equal(res.statusCode, 200);
+                    assert.strictEqual(res.statusCode, 200);
                     done();
                 });
             });
             it('should return HTTP 200 for an existing user', function(done) {
                 chargify.get('customers/' + id + '.json', function(err, res, body) {
                     if (err) throw err;
-                    assert.equal(res.statusCode, 200);
+                    assert.strictEqual(res.statusCode, 200);
                     assert.ok(body.customer);
                     assert.ok(body.customer.id);
-                    assert.equal(body.customer.first_name, 'Joe');
-                    assert.equal(body.customer.last_name, 'Smith');
+                    assert.strictEqual(body.customer.first_name, 'Joe');
+                    assert.strictEqual(body.customer.last_name, 'Smith');
                     done();
                 });
             });
             it('should return HTTP 404 for an unknown user', function(done) {
                 chargify.get('customers/99999999.json', function(err, res, body) {
                     if (err) throw err;
-                    assert.equal(res.statusCode, 404);
+                    assert.strictEqual(res.statusCode, 404);
                     done();
                 });
             });
@@ -132,8 +132,8 @@ describe('chargify', function() {
                     uri: 'customers/' + id + '.json',
                 }, function(err, res, body) {
                     if (err) throw err;
-                    assert.equal(res.statusCode, 403);
-                    assert.equal(body, '403 Forbidden');
+                    assert.strictEqual(res.statusCode, 403);
+                    assert.strictEqual(body, '403 Forbidden');
                     done();
                 });
             });
