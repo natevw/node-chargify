@@ -21,6 +21,12 @@
             "name": "Will White",
             "email": "will@mapbox.com",
             "url": "http://mapbox.com"
+        },
+        {
+            "name": "Jenny Lian"
+        },
+        {
+            "name": "Reiah Paul Sam"
         }
     ],
     "licenses": [
