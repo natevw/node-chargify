@@ -1,6 +1,18 @@
 var request = require('request');
-var _ = require('underscore');
+var _ = require('xok');
 var url = require('url');
+
+function nn(obj) {
+    // non-nullish entries of `obj`
+    // e.g. `nn({a:1,b:null,c:2,d:void 0,e:0,f:''})`
+    //          => `{ a: 1, c: 2, e: 0, f: '' }`
+    var nnObj = {};
+    for (k in obj) if (
+        obj.hasOwnProperty(k) &&
+        obj[k] != null      // n.b. loose check!
+    ) nnObj[k] = obj[k];
+    return nnObj;
+}
 
 function Chargify(options) {
     if (typeof options === 'string') {
@@ -18,11 +30,11 @@ function Chargify(options) {
 
 Chargify.prototype.request = function(options, callback) {
     options.uri = options.uri || options.url;
-    options.uri = url.format(_(url.parse(options.uri)).defaults({
+    options.uri = url.format(_({
         protocol: 'https',
         host: this.host,
         auth: this.api_key + ':x'
-    }));
+    }, nn(url.parse(options.uri))));
     options.headers = {
         'accept': 'application/json'
     };

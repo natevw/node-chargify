@@ -37,7 +37,7 @@
     "main": "chargify",
     "dependencies": {
         "request": "^2.88.2",
-        "underscore": "^1.13.1"
+        "xok": "^2.0.0"
     },
     "engines": {
         "node": ">= 0.6.x"
